@@ -6,11 +6,62 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Exam MongoDB</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="js/index.js"></script>
+        <link rel="stylesheet" href="css/index.css">
+        <script src="js/jquery.toast.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/jquery.toast.min.css" />
     </head>
     <body>
-        <div>TODO write content</div>
+        <div id="contenedorPrincipal" class="container">
+            <div class="jumbotron text-center">
+                <h1>EXAMEN AUTOCORREGIDO</h1>      
+                <img src="img/exam.png" alt="Autentificación img"/>
+                <p>Realice su exámen o compruebe los resultados</p>      
+            </div>    
+
+            <form id="myForm" class="text-center">
+                <div class="form-group">
+                    <label for="inpDNI">DNI</label>
+                    <input type="text" class="form-control" placeholder="Introduzca el DNI"  maxlength="9" id="inpDNI" pattern="(([X-Z]{1})([-]?)(\d{7})([-]?)([A-Z]{1}))|((\d{8})([-]?)([A-Z]{1}))" title="00000000Z (8 números + letra Mayúscula)" required>
+                </div>
+                <div class="form-group">
+                    <label for="selectExamenes">Elige un exámen</label>
+                    <select class="form-control" id="selectExamenes">
+                        <option>Exámen 1</option>
+                        <option>Exámen 2</option>
+                        <option>Exámen 3</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-secondary" id="btnResulados">VER<br>RESULTADOS</button>
+                <button type="submit" class="btn btn-secondary" form="myForm" id="btnHacerTest" >HACER<br>TEST</button>
+            </form>
+        </div>
+        
+        <!-- Modal confirmar test -->
+        <div class="modal fade" id="modalTest">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Realización del test</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás seguro que quieres realizar el test?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnConfirmarTest">SI</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
