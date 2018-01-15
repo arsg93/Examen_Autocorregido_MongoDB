@@ -5,6 +5,13 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%String dni = (String) request.getAttribute("DNI"); %>
+
+<%
+    if (dni == null) {
+        response.sendRedirect("index.html");
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
