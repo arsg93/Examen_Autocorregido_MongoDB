@@ -5,8 +5,10 @@
  */
 var DNI = null;
 var tipoExamen = null;
-var nota = null;
-var soluciones = [];
+var nota = 0;
+var tipo = ["text", "text", "checkbox"];
+var soluciones = ["John", "Robert", [1,0]];
+var identificador;
 
 $(document).ready(function () {
     comprobarDatos();
@@ -50,23 +52,26 @@ function generarExamen() {
             $.each(rsp, function (i, item) {
                 escribirTitulo(i, item.titulo);
                 soluciones.push(item.correcta);
+                tipo.push(item.tipo);
+
                 switch (item.tipo) {
                     case "radio":
-                        escribirRadio(item.respuesta);
+                        //escribirRadio(item.respuesta);
                         break;
                     case "text":
-                        escribirText();
+                        //escribirText();
                         break;
                     case "checkbox":
-                        escribirCheckBox(item.respuesta);
+                        //escribirCheckBox(item.respuesta);
                         break;
                     case "selectS":
-                        escribirSelectS(item.respuesta);
+                        //escribirSelectS(item.respuesta);
                         break;
                     case "multiple":
-                        escribirMultiple(item.respuesta);
+                        //escribirMultiple(item.respuesta);
                         break;
                 }
+
             });
 
         },
@@ -81,16 +86,45 @@ function generarExamen() {
 }
 
 function escribirTitulo(i, titulo) {
-    $("#divFormulario").append("<h3>" + i + ") " + titulo + "</h3>");
+    $("#divFormulario").append("<h3>" + (i + 1) + ") " + titulo + "</h3>");
 }
 
 function corregirExamen() {
-    //   ....
-    //   ....
-    //   ....
+    var i = 0;
 
+    $("form").find('input:text, select, radio, .chkBox')
+            .each(function () {
+                switch (tipo[i]) {
+                    case "radio":
+                        //corregirRadio();
+                        break;
+                    case "text":
+                        //Corregir text
+                        if ($(this).val() === soluciones[i]) {
+                            nota += 10 / 10;
+                        }
+                        break;
+                    case "checkbox":
+                        //Recorrer el checkBox - Length de checkBox hijos
+                        var array = $(this).find('input:checkbox').get();
+                        for (x = 0; x < soluciones[i].length; x++) {
+                            if (array[soluciones[i][x]].checked) {
+                                nota += (10 / 10) / soluciones[i].length;
+                            }
+                        }
+                        break;
+                    case "selectS":
+                        //escribirSelectS(item.respuesta);
+                        break;
+                    case "multiple":
+                        //escribirMultiple(item.respuesta);
+                        break;
+                }
+                i++;
+            });
+    alert("NOTA " + nota)
     //Al final guardamos la nota
-    guardarNota();
+    //guardarNota();
 }
 
 function guardarNota() {
