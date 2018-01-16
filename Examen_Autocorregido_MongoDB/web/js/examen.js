@@ -46,10 +46,9 @@ function generarExamen() {
             //    ....
             //    ....
             //    ....
-            for (i = 0; i < 10; i++) {
-                escribirTitulo(i, "Titulo Pregunta");
-                
-            }
+            $.each(rsp, function (i, item) {
+                escribirTitulo(i, item.titulo);
+            });
 
         },
         error: function (e) {
