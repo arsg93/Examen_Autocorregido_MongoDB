@@ -10,14 +10,14 @@ var nota = null;
 $(document).ready(function () {
     comprobarDatos();
     generarExamen();
-    
+
     //Clicks
-    $("#myForm").submit(function (){
+    $("#myForm").submit(function () {
         corregirExamen();
         return false;
     });
-    
-    
+
+
 });
 
 function comprobarDatos() {
@@ -26,7 +26,7 @@ function comprobarDatos() {
 
     //Si no existen los datos, redireccionar al index
     if (DNI === null || tipoExamen === null) {
-        location.replace("./index.html");
+        //location.replace("./index.html");
     }
 
     //Si existen los datos, borrarlos para la proxima vez
@@ -46,6 +46,11 @@ function generarExamen() {
             //    ....
             //    ....
             //    ....
+            for (i = 0; i < 10; i++) {
+                escribirTitulo(i, "Titulo Pregunta");
+                
+            }
+
         },
         error: function (e) {
             if (e["responseJSON"] === undefined) {
@@ -57,23 +62,27 @@ function generarExamen() {
     });
 }
 
+function escribirTitulo(i, titulo) {
+    $("#divFormulario").append("<h3>" + i + ") " + titulo + "</h3>");
+}
+
 function corregirExamen() {
     //   ....
     //   ....
     //   ....
-    
+
     //Al final guardamos la nota
     guardarNota();
 }
 
-function guardarNota(){
+function guardarNota() {
     var url = "notasServlet";
     $.ajax({
         method: "POST",
         url: url,
-        data: {DNI: DNI, tipoExamen: tipoExamen, nota:nota},
+        data: {DNI: DNI, tipoExamen: tipoExamen, nota: nota},
         success: function (rsp) {
-            showToast("Guardado Correctamente", "Nota: "+nota, "success", "#36B62D");
+            showToast("Guardado Correctamente", "Nota: " + nota, "success", "#36B62D");
         },
         error: function (e) {
             if (e["responseJSON"] === undefined) {
