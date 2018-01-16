@@ -20,7 +20,7 @@ $(document).ready(function () {
         sessionStorage.setItem("_DNI", DNI);
         sessionStorage.setItem("_tipoExamen", examen);
 
-        location.replace("./examen.html");
+        window.location = "examen.html";
     });
 });
 

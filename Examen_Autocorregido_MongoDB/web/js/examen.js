@@ -67,13 +67,13 @@ function corregirExamen() {
 }
 
 function guardarNota(){
-    var url = "guardarNotaServlet";
+    var url = "notasServlet";
     $.ajax({
         method: "POST",
         url: url,
         data: {DNI: DNI, tipoExamen: tipoExamen, nota:nota},
         success: function (rsp) {
-            showToast("NOTA GUARDADA", "Nota: "+nota, "success", "#36B62D");
+            showToast("Guardado Correctamente", "Nota: "+nota, "success", "#36B62D");
         },
         error: function (e) {
             if (e["responseJSON"] === undefined) {
