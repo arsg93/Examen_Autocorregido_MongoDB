@@ -5,12 +5,23 @@
  */
 package servlets;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.bson.Document;
 
 /**
  *
@@ -18,69 +29,47 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class getExamenServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet getExamenServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet getExamenServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    public void init() throws ServletException {
+        try {
+            //Connect
+            MongoClientURI uri = new MongoClientURI(
+                    "mongodb+srv://backend:frontend@exam-r6hnd.mongodb.net/test");
+            MongoClient mongoClient = new MongoClient(uri);
+            //Create Database
+            MongoDatabase database = mongoClient.getDatabase("Examen");
+
+            //Create collection
+            MongoCollection<Document> collExA = database.getCollection("Examen A");
+            collExA.drop();
+            collExA = database.getCollection("Examen A");
+
+            //Create document
+            Document pregunta = new Document()
+                    .append("tipo", "selectS")
+                    .append("titulo", "¿Dónde nos podemos encontrar a Link?");
+
+            Document respuesta = new Document("respuesta", 2)
+                    .append("option", "En Dragon Ball")
+                    .append("option", "En el videojuego \"La leyenda de Link\"")
+                    .append("option", "En el Super Smash Bros")
+                    .append("option", "En Doraemon");
+            pregunta.put("respuesta", respuesta);
+
+            //Insert document
+            collExA.insertOne(pregunta);
+            mongoClient.close();
+
+        } catch (Exception e) {
+
+        }
+
+    }
 
 }
