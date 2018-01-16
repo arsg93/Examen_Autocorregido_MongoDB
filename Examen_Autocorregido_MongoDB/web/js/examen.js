@@ -6,6 +6,7 @@
 var DNI = null;
 var tipoExamen = null;
 var nota = null;
+var soluciones = [];
 
 $(document).ready(function () {
     comprobarDatos();
@@ -48,6 +49,24 @@ function generarExamen() {
             //    ....
             $.each(rsp, function (i, item) {
                 escribirTitulo(i, item.titulo);
+                soluciones.push(item.correcta);
+                switch (item.tipo) {
+                    case "radio":
+                        escribirRadio(item.respuesta);
+                        break;
+                    case "text":
+                        escribirText();
+                        break;
+                    case "checkbox":
+                        escribirCheckBox(item.respuesta);
+                        break;
+                    case "selectS":
+                        escribirSelectS(item.respuesta);
+                        break;
+                    case "multiple":
+                        escribirMultiple(item.respuesta);
+                        break;
+                }
             });
 
         },
