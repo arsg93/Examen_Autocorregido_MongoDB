@@ -12,6 +12,10 @@
         <servlet-name>notasServlet</servlet-name>
         <servlet-class>servlets.notasServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getExamenServlet</servlet-name>
+        <servlet-class>servlets.getExamenServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getExamsNames</servlet-name>
         <url-pattern>/getExamsNames</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>notasServlet</servlet-name>
         <url-pattern>/notasServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getExamenServlet</servlet-name>
+        <url-pattern>/getExamenServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

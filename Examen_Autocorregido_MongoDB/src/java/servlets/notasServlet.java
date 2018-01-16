@@ -48,7 +48,7 @@ public class notasServlet extends HttpServlet {
             //Mete todos los documentos en una lista
             List<Document> notas = (List<Document>) collectionNotas.find().into(
                     new ArrayList<Document>());
-
+            mongoClient.close();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String json = gson.toJson(notas);
             response.setContentType("application/json");
@@ -95,6 +95,7 @@ public class notasServlet extends HttpServlet {
                     .append("nota", nota);
 
             collectionNotas.insertOne(notaDoc);
+            mongoClient.close();
 
         } catch (Exception e) {
             Map<String, String> emess = new HashMap<>();
