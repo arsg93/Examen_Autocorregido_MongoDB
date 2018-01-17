@@ -139,10 +139,7 @@ public class getExamenServlet extends HttpServlet {
                 .append("titulo", "¿Qué videojuego clásico arcade se basa en la colocación de bloques de distintas figuras\n"
                         + "        geométricas en la pantalla e ir haciendo líneas horizontales?");
 
-        //Add repuestas correctas.
-        Document correcta = new Document()
-                .append("0", "tetris");
-        pregunta.put("correcta", correcta);
+        pregunta.put("correcta", "tetris");
 
         return pregunta;
     }
@@ -153,9 +150,6 @@ public class getExamenServlet extends HttpServlet {
                 .append("tipo", "text")
                 .append("titulo", "Pacman tiene 4 enemigos y esos enemigos son unos....");
 
-        //Add repuestas correctas.
-        Document correcta = new Document()
-                .append("0", 1);
         pregunta.put("correcta", "fantasmas");
 
         return pregunta;
@@ -169,7 +163,7 @@ public class getExamenServlet extends HttpServlet {
                         + "		la persona que tiene que rescatar?");
 
         //Add repuestas correctas.
-        Document correcta = new Document()
+        Document correcta = new Document("tam", 2)
                 .append("0", 0)
                 .append("1", 3);
         pregunta.put("correcta", correcta);
@@ -191,9 +185,9 @@ public class getExamenServlet extends HttpServlet {
                 .append("titulo", "¿Cuales son las princesas de Mario?");
 
         //Add repuestas correctas.
-        Document correcta = new Document()
+        Document correcta = new Document("tam", 2)
                 .append("0", 0)
-                .append("0", 2);
+                .append("1", 2);
         pregunta.put("correcta", correcta);
 
         //Add respuestas.
@@ -210,11 +204,7 @@ public class getExamenServlet extends HttpServlet {
         Document pregunta = new Document()
                 .append("tipo", "selectS")
                 .append("titulo", "¿Cual es la evolución de Pikachu?");
-
-        //Add repuestas correctas.
-        Document correcta = new Document()
-                .append("0", 2);
-        pregunta.put("correcta", correcta);
+        pregunta.put("correcta", 2);
 
         //Add respuestas.
         Document respuesta = new Document()
@@ -231,11 +221,7 @@ public class getExamenServlet extends HttpServlet {
         Document pregunta = new Document()
                 .append("tipo", "selectS")
                 .append("titulo", "¿Que famoso tiene una saga de videojuego en honor a su nombre?");
-
-        //Add repuestas correctas.
-        Document correcta = new Document()
-                .append("0", 1);
-        pregunta.put("correcta", correcta);
+        pregunta.put("correcta", 1);
 
         //Add respuestas.
         Document respuesta = new Document()
@@ -254,9 +240,9 @@ public class getExamenServlet extends HttpServlet {
                 .append("titulo", "¿Qué juegos son de nintendo?");
 
         //Add repuestas correctas.
-        Document correcta = new Document()
+        Document correcta = new Document("tam", 2)
                 .append("0", 1)
-                .append("0", 2);
+                .append("1", 2);
         pregunta.put("correcta", correcta);
 
         //Add respuestas.
@@ -276,10 +262,10 @@ public class getExamenServlet extends HttpServlet {
                 .append("titulo", "¿En qué juegos aparecen Zombies?");
 
         //Add repuestas correctas.
-        Document correcta = new Document()
+        Document correcta = new Document("tam", 3)
                 .append("0", 0)
-                .append("0", 1)
-                .append("0", 3);
+                .append("1", 1)
+                .append("2", 3);
         pregunta.put("correcta", correcta);
 
         //Add respuestas.

@@ -6,8 +6,10 @@
 var DNI = null;
 var tipoExamen = null;
 var nota = 0;
-var tipo = ["text", "text", "checkbox", "radio", "selectS", "multiple"];
-var soluciones = ["John", "Robert", [1, 0], 0, 2, [0, 1, 2]];
+var tipo = [];
+var soluciones = [];
+var numSoluciones = [];
+
 $(document).ready(function () {
     comprobarDatos();
     generarExamen();
@@ -39,10 +41,7 @@ function generarExamen() {
         success: function (rsp) {
             $("#divCargando").fadeOut(400);
             showToast("Exámen " + (parseInt(tipoExamen) + 1), "Cargado correctamente", "success", "#36B62D");
-            // AQUI SE GENERARA:
-            //    ....
-            //    ....
-            //    ....
+            
             $.each(rsp, function (i, item) {
                 escribirTitulo(i, item.titulo);
                 soluciones.push(item.correcta);
@@ -88,24 +87,27 @@ function corregirExamen() {
             .each(function () {
                 switch (tipo[i]) {
                     case "radio":
-                        //corregirRadio
-                        var array = $(this).find('input:radio').get();
-                        if (array[soluciones[i]].checked) {
-                            nota += (10 / tipo.length);
-                        }
+//                        //corregirRadio
+//                        var array = $(this).find('input:radio').get();
+//                        alert(array.length);
+//                        if (array[soluciones[i]].checked) {
+//                            nota += (10 / tipo.length);
+//                        }
                         break;
                     case "text":
                         //Corregir text
                         if ($(this).val() === soluciones[i]) {
+                            alert("Text Correcto");
                             nota += 10 / tipo.length;
                         }
                         break;
                     case "checkbox":
                         //Recorrer el checkBox - Length de checkBox hijos
                         var array = $(this).find('input:checkbox').get();
-                        for (x = 0; x < soluciones[i].length; x++) {
+                        for (x = 0; x < soluciones[i].tam; x++) {
                             if (array[soluciones[i][x]].checked) {
-                                nota += (10 / tipo.length) / soluciones[i].length;
+                                alert("Correcto");
+                                nota += (10 / tipo.length) / soluciones[i].tam;
                             }
                         }
                         break;
@@ -118,14 +120,14 @@ function corregirExamen() {
                         var array = $(this).find('option').get();
                         for (x = 0; x < soluciones[i].length; x++) {
                             if (array[soluciones[i][x]].selected) {
-                                nota += (10 / tipo.length) / soluciones[i].length;
+                                nota += (10 / tipo.length) / soluciones[i].tam;
                             }
                         }
                         break;
                 }
                 i++;
             });
-    alert("NOTA " + nota)
+    alert("NOTA " + nota);
     //Al final guardamos la nota
     //guardarNota();
 }
