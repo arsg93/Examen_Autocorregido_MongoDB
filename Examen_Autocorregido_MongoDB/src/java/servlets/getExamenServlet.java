@@ -14,9 +14,7 @@ import com.mongodb.client.MongoDatabase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,14 +38,23 @@ public class getExamenServlet extends HttpServlet {
         MongoDatabase database = mongoClient.getDatabase("Examen");
 
         //Create collection
-        MongoCollection<Document> collExA = database.getCollection("Examen A");
+        MongoCollection<Document> collExA = database.getCollection("Examenes");
 
-        //Mete todos los documentos en una lista
-        List<Document> ex = (List<Document>) collExA.find().into(
-                new ArrayList<Document>());
+        
+        List<Document> examenes = database.getCollection("Examenes").find().into(new ArrayList<>());
+        List<Document> examenD = new ArrayList<>();
+        for (Document examen : examenes) {
+            if(examen.getString("Nombre").equals("Exámen A")){
+                examenD.add(examen);
+            }
+            
+        }
+//        //Mete todos los documentos en una lista
+//        List<Document> ex = (List<Document>) collExA.find().into(
+//                new ArrayList<Document>());
         mongoClient.close();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(ex);
+        String json = gson.toJson(examenD);
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             out.println(json);
@@ -66,22 +73,29 @@ public class getExamenServlet extends HttpServlet {
             MongoDatabase database = mongoClient.getDatabase("Examen");
 
             //Create collection
-            MongoCollection<Document> collExA = database.getCollection("Examen A");
-            collExA.drop();
-            collExA = database.getCollection("Examen A");
-
+            MongoCollection<Document> collEx = database.getCollection("Examenes");
+            collEx.drop();
+            collEx = database.getCollection("Examenes");
+            
+            Document examenA = new Document("Nombre", "Exámen A");
+            Document examenB = new Document("Nombre", "Exámen B");
+            
             //Insert preguntas
-            collExA.insertOne(pregunta1ExA());
-            collExA.insertOne(pregunta2ExA());
-            collExA.insertOne(pregunta3ExA());
-            collExA.insertOne(pregunta4ExA());
-            collExA.insertOne(pregunta5ExA());
-            collExA.insertOne(pregunta6ExA());
-            collExA.insertOne(pregunta7ExA());
-            collExA.insertOne(pregunta8ExA());
-            collExA.insertOne(pregunta9ExA());
-            collExA.insertOne(pregunta10ExA());
+            examenA.put("0", pregunta1ExA());
+            examenA.put("1", pregunta2ExA());
+            examenA.put("2", pregunta3ExA());
+            examenA.put("3", pregunta4ExA());
+            examenA.put("4", pregunta5ExA());
+            examenA.put("5", pregunta6ExA());
+            examenA.put("6", pregunta7ExA());
+            examenA.put("7", pregunta8ExA());
+            examenA.put("8", pregunta9ExA());
+            examenA.put("9", pregunta10ExA());
 
+            examenB.put("0", pregunta1ExA());
+            
+            collEx.insertOne(examenA);
+            collEx.insertOne(examenB);
             mongoClient.close();
 
         } catch (Exception e) {

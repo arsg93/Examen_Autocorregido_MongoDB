@@ -42,28 +42,29 @@ function generarExamen() {
             $("#divCargando").fadeOut(400);
             showToast("Exámen " + (parseInt(tipoExamen) + 1), "Cargado correctamente", "success", "#36B62D");
 
-            $.each(rsp, function (i, item) {
-                escribirTitulo(i, item.titulo);
-                soluciones.push(item.correcta);
-                tipo.push(item.tipo);
-                switch (item.tipo) {
-                    case "radio":
-                        escribirRadio(item);
-                        break;
-                    case "text":
-                        escribirText(item);
-                        break;
-                    case "checkbox":
-                        escribirCheckBox(item);
-                        break;
-                    case "selectS":
-                        escribirSelectS(item);
-                        break;
-                    case "multiple":
-                        escribirMultiple(item);
-                        break;
+            $.each(rsp[0], function (i, item) {
+                if (i !== "_id" && i !== "Nombre") {
+                    escribirTitulo(i, item.titulo);
+                    soluciones.push(item.correcta);
+                    tipo.push(item.tipo);
+                    switch (item.tipo) {
+                        case "radio":
+                            escribirRadio(item);
+                            break;
+                        case "text":
+                            escribirText(item);
+                            break;
+                        case "checkbox":
+                            escribirCheckBox(item);
+                            break;
+                        case "selectS":
+                            escribirSelectS(item);
+                            break;
+                        case "multiple":
+                            escribirMultiple(item);
+                            break;
+                    }
                 }
-
             });
         },
         error: function (e) {
@@ -78,7 +79,8 @@ function generarExamen() {
 }
 
 function escribirTitulo(i, titulo) {
-    $("#divFormulario").append("<h3>" + (i + 1) + ") " + titulo + "</h3>");
+    var x = (i + 1);
+    $("#divFormulario").append("<h3>" + x + ") " + titulo + "</h3>");
 }
 
 function corregirExamen() {
