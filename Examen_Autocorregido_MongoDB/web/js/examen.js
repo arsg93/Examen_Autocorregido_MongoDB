@@ -79,7 +79,7 @@ function generarExamen() {
 }
 
 function escribirTitulo(i, titulo) {
-    var x = (i + 1);
+    var x = parseFloat(i) + parseFloat(1);
     $("#divFormulario").append("<h3>" + x + ") " + titulo + "</h3>");
 }
 
@@ -171,7 +171,7 @@ function showToast(head, text, icon, bgColor) {
 function escribirRadio(pregunta) {
     var $div = $("<div />").addClass("divRadio");
     $.each(pregunta.respuesta, function (i, item) {
-        $div.append($("<input type='radio' name='" + pregunta.titulo + "'> <p style='display:inline'>" + item + " </p>"))
+        $div.append($("<label><input type='radio' name='" + pregunta.titulo + "'required> "+item+"</label><br>"));
     });
     $("#divFormulario").append($div);
 }
@@ -179,23 +179,23 @@ function escribirRadio(pregunta) {
 function escribirCheckBox(pregunta) {
     var $div = $("<div />").addClass("divCheckBox");
     $.each(pregunta.respuesta, function (i, item) {
-        $div.append($("<input type='checkbox' name='" + pregunta.titulo + "'> <p style='display:inline'>" + item + " </p>"))
+        $div.append($("<label><input type='checkbox' name='" + pregunta.titulo + "'> "+item+"</label><br>"));
     });
     $("#divFormulario").append($div);
 }
 
 function escribirSelectS(pregunta) {
-    var $sel = $("<select />");
+    var $sel = $("<select required/>");
     $.each(pregunta.respuesta, function (i, item) {
-        $sel.append($("<option>" + item + "</option>"))
+        $sel.append($("<option>" + item + "</option>"));
     });
     $("#divFormulario").append($sel);
 }
 
 function escribirMultiple(pregunta) {
-    var $sel = $("<select multiple />");
+    var $sel = $("<select multiple required/>");
     $.each(pregunta.respuesta, function (i, item) {
-        $sel.append($("<option>" + item + "</option>"))
+        $sel.append($("<option>" + item + "</option>"));
     });
     $("#divFormulario").append($sel);
 }
