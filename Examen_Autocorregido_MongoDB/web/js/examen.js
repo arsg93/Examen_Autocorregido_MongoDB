@@ -41,7 +41,7 @@ function generarExamen() {
         success: function (rsp) {
             $("#divCargando").fadeOut(400);
             showToast("Exámen " + (parseInt(tipoExamen) + 1), "Cargado correctamente", "success", "#36B62D");
-            
+
             $.each(rsp, function (i, item) {
                 escribirTitulo(i, item.titulo);
                 soluciones.push(item.correcta);
@@ -88,16 +88,14 @@ function corregirExamen() {
                 switch (tipo[i]) {
                     case "radio":
 //                        //corregirRadio
-//                        var array = $(this).find('input:radio').get();
-//                        alert(array.length);
-//                        if (array[soluciones[i]].checked) {
-//                            nota += (10 / tipo.length);
-//                        }
+                        var array = $(this).find('input:radio').get();
+                        if (array[soluciones[i]].checked) {
+                            nota += (10 / tipo.length);
+                        }
                         break;
                     case "text":
                         //Corregir text
                         if ($(this).val() === soluciones[i]) {
-                            alert("Text Correcto");
                             nota += 10 / tipo.length;
                         }
                         break;
@@ -106,7 +104,6 @@ function corregirExamen() {
                         var array = $(this).find('input:checkbox').get();
                         for (x = 0; x < soluciones[i].tam; x++) {
                             if (array[soluciones[i][x]].checked) {
-                                alert("Correcto");
                                 nota += (10 / tipo.length) / soluciones[i].tam;
                             }
                         }
@@ -118,7 +115,7 @@ function corregirExamen() {
                         break;
                     case "multiple":
                         var array = $(this).find('option').get();
-                        for (x = 0; x < soluciones[i].length; x++) {
+                        for (x = 0; x < soluciones[i].tam; x++) {
                             if (array[soluciones[i][x]].selected) {
                                 nota += (10 / tipo.length) / soluciones[i].tam;
                             }
@@ -127,7 +124,9 @@ function corregirExamen() {
                 }
                 i++;
             });
-    alert("NOTA " + nota);
+    nota = Math.round(nota * 100) / 100;
+    alert(nota);
+
     //Al final guardamos la nota
     //guardarNota();
 }
