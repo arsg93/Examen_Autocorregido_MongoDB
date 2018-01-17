@@ -167,28 +167,25 @@ function showToast(head, text, icon, bgColor) {
 }
 
 function escribirRadio(pregunta) {
+    var $div = $("<div />").addClass("divRadio");
     $.each(pregunta.respuesta, function (i, item) {
-        var $div = $("<div class='radio divRadio' />");
-        $div.append($("<label><input type='radio' name='" + pregunta.titulo + "'>" + item + "</label>"));
-        $("#divFormulario").append($div);
+        $div.append($("<input type='radio' name='" + pregunta.titulo + "'> <p style='display:inline'>" + item + " </p>"))
     });
-
+    $("#divFormulario").append($div);
 }
 
 function escribirCheckBox(pregunta) {
-
+    var $div = $("<div />").addClass("divCheckBox");
     $.each(pregunta.respuesta, function (i, item) {
-        var $div = $("<div class='checkbox divCheckBox'/>");
-        $div.append($("<label><input type='checkbox' name='" + pregunta.titulo + "'>" + item + "</label>"));
-        $("#divFormulario").append($div);
+        $div.append($("<input type='checkbox' name='" + pregunta.titulo + "'> <p style='display:inline'>" + item + " </p>"))
     });
-
+    $("#divFormulario").append($div);
 }
 
 function escribirSelectS(pregunta) {
     var $sel = $("<select />");
     $.each(pregunta.respuesta, function (i, item) {
-        $sel.append($("<option>" + item + "</option>"));
+        $sel.append($("<option>" + item + "</option>"))
     });
     $("#divFormulario").append($sel);
 }
@@ -196,12 +193,12 @@ function escribirSelectS(pregunta) {
 function escribirMultiple(pregunta) {
     var $sel = $("<select multiple />");
     $.each(pregunta.respuesta, function (i, item) {
-        $sel.append($("<option>" + item + "</option>"));
+        $sel.append($("<option>" + item + "</option>"))
     });
     $("#divFormulario").append($sel);
 }
 
 function escribirText(pregunta) {
-    var $tex = $("<input type='text' class='form-control' name='" + pregunta.titulo + "'required>");
+    var $tex = $("<input class='form-control' type='text' name='" + pregunta.titulo + "' required>");
     $("#divFormulario").append($tex);
 }
