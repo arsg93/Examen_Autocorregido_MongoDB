@@ -6,9 +6,8 @@
 var DNI = null;
 var tipoExamen = null;
 var nota = 0;
-var tipo = ["text", "text", "checkbox"];
-var soluciones = ["John", "Robert", [1,0]];
-var identificador;
+var tipo = ["text", "text", "checkbox", "radio", "selectS", "multiple"];
+var soluciones = ["John", "Robert", [1, 0], 0, 2, [0, 1, 2]];
 
 $(document).ready(function () {
     comprobarDatos();
@@ -92,11 +91,15 @@ function escribirTitulo(i, titulo) {
 function corregirExamen() {
     var i = 0;
 
-    $("form").find('input:text, select, radio, .chkBox')
+    $("form").find('input:text, select, .divRadio, .divCheckBox')
             .each(function () {
                 switch (tipo[i]) {
                     case "radio":
-                        //corregirRadio();
+                        //corregirRadio
+                        var array = $(this).find('input:radio').get();
+                        if (array[soluciones[i]].checked) {
+                            nota += (10 / 10);
+                        }
                         break;
                     case "text":
                         //Corregir text
@@ -114,10 +117,17 @@ function corregirExamen() {
                         }
                         break;
                     case "selectS":
-                        //escribirSelectS(item.respuesta);
+                        if ($(this)[0].selectedIndex === soluciones[i]) {
+                            nota += 10 / 10;
+                        }
                         break;
                     case "multiple":
-                        //escribirMultiple(item.respuesta);
+                        var array = $(this).find('option').get();
+                        for (x = 0; x < soluciones[i].length; x++) {
+                            if(array[soluciones[i][x]].selected){
+                                nota += (10 / 10) / soluciones[i].length;
+                            }
+                        }
                         break;
                 }
                 i++;
