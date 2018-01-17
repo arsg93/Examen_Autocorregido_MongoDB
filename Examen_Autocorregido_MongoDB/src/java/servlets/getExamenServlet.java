@@ -109,11 +109,7 @@ public class getExamenServlet extends HttpServlet {
         Document pregunta = new Document()
                 .append("tipo", "radio")
                 .append("titulo", "¿Dónde nos podemos encontrar a Link?");
-
-        //Add repuestas correctas.
-        Document correcta = new Document()
-                .append("0", 2);
-        pregunta.put("correcta", correcta);
+        pregunta.put("correcta", 2);
 
         //Add respuestas.
         Document respuesta = new Document()
@@ -130,11 +126,7 @@ public class getExamenServlet extends HttpServlet {
         Document pregunta = new Document()
                 .append("tipo", "radio")
                 .append("titulo", "¿Cual de estos juegos no existe?");
-
-        //Add repuestas correctas.
-        Document correcta = new Document()
-                .append("0", 1);
-        pregunta.put("correcta", correcta);
+        pregunta.put("correcta", 1);
 
         //Add respuestas.
         Document respuesta = new Document()
