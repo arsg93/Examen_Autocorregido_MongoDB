@@ -43,6 +43,7 @@ function generarExamen() {
         url: url,
         data: {tipoExamen: tipoExamen},
         success: function (rsp) {
+            $("#divCargando").fadeOut(400);
             showToast("Exámen " + (parseInt(tipoExamen) + 1), "Cargado correctamente", "success", "#36B62D");
             // AQUI SE GENERARA:
             //    ....
@@ -75,6 +76,7 @@ function generarExamen() {
 
         },
         error: function (e) {
+            $("#divCargando").fadeOut(400);
             if (e["responseJSON"] === undefined) {
                 showToast("ERROR DESCONOCIDO", "Inténtelo más tarde", "error", "#D43721");
             } else {
@@ -98,13 +100,13 @@ function corregirExamen() {
                         //corregirRadio
                         var array = $(this).find('input:radio').get();
                         if (array[soluciones[i]].checked) {
-                            nota += (10 / 10);
+                            nota += (10 / tipo.length);
                         }
                         break;
                     case "text":
                         //Corregir text
                         if ($(this).val() === soluciones[i]) {
-                            nota += 10 / 10;
+                            nota += 10 / tipo.length;
                         }
                         break;
                     case "checkbox":
@@ -112,20 +114,20 @@ function corregirExamen() {
                         var array = $(this).find('input:checkbox').get();
                         for (x = 0; x < soluciones[i].length; x++) {
                             if (array[soluciones[i][x]].checked) {
-                                nota += (10 / 10) / soluciones[i].length;
+                                nota += (10 / tipo.length) / soluciones[i].length;
                             }
                         }
                         break;
                     case "selectS":
                         if ($(this)[0].selectedIndex === soluciones[i]) {
-                            nota += 10 / 10;
+                            nota += 10 / tipo.length;
                         }
                         break;
                     case "multiple":
                         var array = $(this).find('option').get();
                         for (x = 0; x < soluciones[i].length; x++) {
                             if(array[soluciones[i][x]].selected){
-                                nota += (10 / 10) / soluciones[i].length;
+                                nota += (10 / tipo.length) / soluciones[i].length;
                             }
                         }
                         break;

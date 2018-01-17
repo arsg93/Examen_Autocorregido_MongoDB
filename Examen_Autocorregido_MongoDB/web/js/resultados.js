@@ -15,6 +15,7 @@ function cargarNotas(){
         url: url,
         data: {},
         success: function (jsn) {
+            $("#divCargando").fadeOut(400);
             //Clear the table:
             $("#tablaNotas > tbody").empty();
             //Put the rankings
@@ -27,6 +28,7 @@ function cargarNotas(){
             });
         },
         error: function (e) {
+            $("#divCargando").fadeOut(400);
             if (e["responseJSON"] === undefined) {
                 showToast("ERROR DESCONOCIDO", "Inténtelo más tarde", "error", "#D43721");
             } else {
