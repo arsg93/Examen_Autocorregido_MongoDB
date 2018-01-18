@@ -104,11 +104,30 @@ function corregirExamen() {
                     case "checkbox":
                         //Recorrer el checkBox - Length de checkBox hijos
                         var array = $(this).find('input:checkbox').get();
-                        for (x = 0; x < soluciones[i].tam; x++) {
-                            if (array[soluciones[i][x]].checked) {
-                                nota += (10 / tipo.length) / soluciones[i].tam;
+                        var punt = 0;
+                        var check = 0;
+                        var corr = 0;
+                        for (j = 0; j < array.length; j++) {
+                            if (array[j].checked) {
+                                check++;
                             }
                         }
+                        for (x = 0; x < soluciones[i].tam; x++) {
+                            if (array[soluciones[i][x]].checked) {
+                                corr++;
+                                punt += (10 / tipo.length) / soluciones[i].tam;
+                            }
+                        }
+                        var t = check - corr;
+                        if (check - corr > 0) {
+                            for (x = 0; x < t; x++) {
+                                punt -= (10 / tipo.length) / soluciones[i].tam;
+                            }
+                        }
+                        if (punt < 0) {
+                            punt = 0;
+                        }
+                        nota += punt;
                         break;
                     case "selectS":
                         if ($(this)[0].selectedIndex === soluciones[i]) {
@@ -117,11 +136,31 @@ function corregirExamen() {
                         break;
                     case "multiple":
                         var array = $(this).find('option').get();
-                        for (x = 0; x < soluciones[i].tam; x++) {
-                            if (array[soluciones[i][x]].selected) {
-                                nota += (10 / tipo.length) / soluciones[i].tam;
+                        var punt = 0;
+                        var check = 0;
+                        var corr = 0;
+                        var corr = 0;
+                        for (j = 0; j < array.length; j++) {
+                            if (array[j].selected) {
+                                check++;
                             }
                         }
+                        for (x = 0; x < soluciones[i].tam; x++) {
+                            if (array[soluciones[i][x]].selected) {
+                                corr++;
+                                punt += (10 / tipo.length) / soluciones[i].tam;
+                            }
+                        }
+                        var t = check - corr;
+                        if (check - corr > 0) {
+                            for (x = 0; x < t; x++) {
+                                punt -= (10 / tipo.length) / soluciones[i].tam;
+                            }
+                        }
+                        if (punt < 0) {
+                            punt = 0;
+                        }
+                        nota += punt;
                         break;
                 }
                 i++;
@@ -171,7 +210,7 @@ function showToast(head, text, icon, bgColor) {
 function escribirRadio(pregunta) {
     var $div = $("<div />").addClass("divRadio");
     $.each(pregunta.respuesta, function (i, item) {
-        $div.append($("<label><input type='radio' name='" + pregunta.titulo + "'required> "+item+"</label><br>"));
+        $div.append($("<label><input type='radio' name='" + pregunta.titulo + "'required> " + item + "</label><br>"));
     });
     $("#divFormulario").append($div);
 }
@@ -179,7 +218,7 @@ function escribirRadio(pregunta) {
 function escribirCheckBox(pregunta) {
     var $div = $("<div />").addClass("divCheckBox");
     $.each(pregunta.respuesta, function (i, item) {
-        $div.append($("<label><input type='checkbox' name='" + pregunta.titulo + "'> "+item+"</label><br>"));
+        $div.append($("<label><input type='checkbox' name='" + pregunta.titulo + "'> " + item + "</label><br>"));
     });
     $("#divFormulario").append($div);
 }
