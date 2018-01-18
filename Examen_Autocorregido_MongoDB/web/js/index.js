@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-
+    cargarNombresExamenes();
     //Ver resultados
     $("#btnResulados").click(function () {
         window.location = "resultados.html";
@@ -14,7 +14,7 @@ $(document).ready(function () {
 
     //Confirmar test
     $("#btnConfirmarTest").click(function () {
-        var examen = $("#selectExamenes")[0].selectedIndex;
+        var examen = $("#selectExamenes :selected").text();
         var DNI = $("#inpDNI").val();
 
         sessionStorage.setItem("_DNI", DNI);
@@ -23,6 +23,30 @@ $(document).ready(function () {
         window.location = "examen.html";
     });
 });
+
+function cargarNombresExamenes() {
+    var url = "getNameExamen";
+    $.ajax({
+        method: "GET",
+        url: url,
+        data: {},
+        success: function (jsn) {
+            $("#divCargando").fadeOut(400);
+            $.each(jsn, function (i, item) {
+                var option = "<option>" + item + "</option>";
+                $("#selectExamenes").append(option);
+            });
+        },
+        error: function (e) {
+            $("#divCargando").fadeOut(400);
+            if (e["responseJSON"] === undefined) {
+                showToast("ERROR DESCONOCIDO", "Inténtelo más tarde", "error", "#D43721");
+            } else {
+                showToast(e["responseJSON"]["error"], "Ups, algo malo ha ocurrido", "error", "#D43721");
+            }
+        }
+    });
+}
 
 
 function showToast(head, text, icon, bgColor) {
