@@ -76,6 +76,7 @@ input, select{
     margin-bottom: 30px;
 }
 
+
 #myForm button {
     padding: 5px;
     width: 20%;
@@ -107,6 +108,30 @@ input, select{
     vertical-align:middle
 }
 
+.modal {
+    text-align: center;
+}
+
+.modal h4 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.modal-body p {
+    font-size: 1.33em;
+}
+
+.modal button {
+    margin-left: 5%;
+    float: left;
+    width: 20%;
+}
+
+#btnConfirmarTest{
+    margin-right: 5%;
+    float: right;
+}
+
 @media screen and (max-width: 767.5px){
     input, select{
         width: 80% !important;
@@ -123,6 +148,10 @@ input, select{
         height: 85%;
         -webkit-transition: -webkit-transform .8s ease-in-out;
         transition:         transform .8s ease-in-out;
+    }
+
+    .modal button {
+        width: 30%;
     }
 }
 
