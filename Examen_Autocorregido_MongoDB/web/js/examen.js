@@ -77,7 +77,7 @@ function generarExamen() {
         data: {tipoExamen: tipoExamen},
         success: function (rsp) {
             $("#divCargando").fadeOut(400);
-            showToast("Exámen " + (parseInt(tipoExamen) + 1), "Cargado correctamente", "success", "#36B62D");
+            showToast(rsp[0].Nombre, "Cargado correctamente", "success", "#36B62D");
 
             $.each(rsp[0], function (i, item) {
                 if (i !== "_id" && i !== "Nombre") {

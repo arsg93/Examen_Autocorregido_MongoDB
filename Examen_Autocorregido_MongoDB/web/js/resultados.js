@@ -21,7 +21,7 @@ function cargarNotas(){
             //Put the rankings
             $.each(jsn, function (i, item) {
                 var DNI = "* * * * "+(item.DNI).substring(4,item.DNI.length);
-                var tipo = "Tipo "+(parseInt(item.tipoExamen) + 1);
+                var tipo = item.tipoExamen;
                 var nota = item.nota; 
                 var row = "<tr><td>" + DNI + "</td><td>" + tipo + "</td><td>" + nota + "</td></tr>";
                 $("#tablaNotas > tbody").append(row);
