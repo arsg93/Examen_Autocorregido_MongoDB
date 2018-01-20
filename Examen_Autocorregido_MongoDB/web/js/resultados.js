@@ -4,11 +4,14 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function() {
-      cargarNotas();
+$(document).ready(function () {
+    $("#btnVolver").click(function (){
+       window.location = "index.html"; 
+    });
+    cargarNotas();
 });
 
-function cargarNotas(){
+function cargarNotas() {
     var url = "notasServlet";
     $.ajax({
         method: "GET",
@@ -20,9 +23,9 @@ function cargarNotas(){
             $("#tablaNotas > tbody").empty();
             //Put the rankings
             $.each(jsn, function (i, item) {
-                var DNI = "* * * * "+(item.DNI).substring(4,item.DNI.length);
+                var DNI = (item.DNI).substring(0, 4) + " * * * * " + (item.DNI).charAt(item.DNI.length - 1);
                 var tipo = item.tipoExamen;
-                var nota = item.nota; 
+                var nota = item.nota;
                 var row = "<tr><td>" + DNI + "</td><td>" + tipo + "</td><td>" + nota + "</td></tr>";
                 $("#tablaNotas > tbody").append(row);
             });

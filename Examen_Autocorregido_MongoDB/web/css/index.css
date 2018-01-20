@@ -4,47 +4,92 @@ html, body{
 }
 
 body {
-    background-color: #F7D358;
-    width: 100%;
-    height: 100%;
+    background: #8E0E00;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #1F1C18, #8E0E00);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-family: 'Rajdhani', sans-serif;
 }
 
-.jumbotron {
-    background-color: #FE642E;
+.header {
+    text-align: center;
+    color: wheat;
+    background-color: #500000;
+    -webkit-box-shadow: 0px 12px 22px 5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 12px 22px 5px rgba(0,0,0,0.75);
+    box-shadow: 0px 12px 22px 5px rgba(0,0,0,0.75);
+    position: relative;
+    border-radius: 0 0 25px 25px;
+    border: solid 1px white;
+    padding: 25px;
+    margin-bottom: 40px;
 }
 
-.jumbotron img {
-    width: 200px;
+.header h1 {
+    font-weight: bold;
+    font-size: 8vw;
 }
 
+.header h3 {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.header img, .header h1 {
+    display: inline;
+}
+
+#log1, #log2 {
+    position: absolute;
+    top: 5%;
+    height: 85%;
+    -webkit-transition: -webkit-transform .8s ease-in-out;
+    transition:         transform .8s ease-in-out;
+}
+
+#log1:hover, #log2:hover {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
+#log1 {
+    left: 15px;;
+}
+
+#log2 {
+    right: 15px;
+}
+
+label {
+    color: white;
+    font-size: 1.5em;
+}
 
 input, select{
+    -webkit-box-shadow: 0px 8px 22px -1px rgba(0,0,0,0.75) !important;
+    -moz-box-shadow: 0px 8px 22px -1px rgba(0,0,0,0.75) !important;
+    box-shadow: 0px 8px 22px -1px rgba(0,0,0,0.75) !important;
     width: 60% !important;
     text-align: center;
+    font-size: 1.25em !important;
     margin: auto;
     margin-top: 5px;
     margin-bottom: 30px;
 }
 
 #myForm button {
-    padding: 7.5px;
+    padding: 5px;
     width: 20%;
     margin: 30px;
+    font-size: 1.25em !important;
 }
 
-@media screen and (max-width: 767.5px){
-    input, select{
-        width: 80% !important;
-        text-align: center;
-    }
-    #myForm button {
-        width: 33%;
-    }
+#myForm button:hover{
+    border: solid 2px #d33b20;
 }
-
 
 #divCargando {
     background-color:rgba(150, 64, 12, 0.65);
+    z-index: 99;
     position: fixed;
     width: 100%;
     height: 100%; 
@@ -61,3 +106,23 @@ input, select{
     display:table-cell;
     vertical-align:middle
 }
+
+@media screen and (max-width: 767.5px){
+    input, select{
+        width: 80% !important;
+        text-align: center;
+    }
+    #myForm button {
+        width: 33%;
+    }
+
+    #log1, #log2 {
+        position: absolute;
+        opacity: 0.2;
+        top: 5%;
+        height: 85%;
+        -webkit-transition: -webkit-transform .8s ease-in-out;
+        transition:         transform .8s ease-in-out;
+    }
+}
+

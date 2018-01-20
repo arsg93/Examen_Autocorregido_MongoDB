@@ -12,6 +12,7 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
         <script src="js/index.js"></script>
         <link rel="stylesheet" href="css/index.css">
         <script src="js/jquery.toast.min.js"></script>
@@ -26,10 +27,11 @@ and open the template in the editor.
             </div>
         </div>
         <div id="contenedorPrincipal" class="container">
-            <div class="jumbotron text-center">
-                <h1>EXAMEN AUTOCORREGIDO</h1>      
-                <img src="img/exam.png" alt="Autentificación img"/>
-                <p>Realice su exámen o compruebe los resultados</p>      
+            <div class="header">
+                <img id="log1" src="img/logo.png" alt="logo img"/>
+                <h1>MiT</h1>
+                <img id="log2" src="img/logo.png" alt="logo img"/>
+                <h3>Instituto Tecnológico<br>de Massachusetts</h3>  
             </div>    
 
             <form id="myForm" class="text-center">
@@ -42,8 +44,8 @@ and open the template in the editor.
                     <select class="form-control" id="selectExamenes">
                     </select>
                 </div>
-                <button type="button" class="btn btn-secondary" id="btnResulados">VER<br>RESULTADOS</button>
-                <button type="submit" class="btn btn-secondary" form="myForm" id="btnHacerTest" >HACER<br>TEST</button>
+                <button type="button"  id="btnResulados">VER<br>RESULTADOS</button>
+                <button type="submit" form="myForm" id="btnHacerTest" >HACER<br>TEST</button>
             </form>
         </div>
 
