@@ -38,9 +38,6 @@ public class getExamenServlet extends HttpServlet {
         MongoDatabase database = mongoClient.getDatabase("Examen");
 
         //Create collection
-        MongoCollection<Document> collExA = database.getCollection("Examenes");
-
-        
         List<Document> examenes = database.getCollection("Examenes").find().into(new ArrayList<>());
         List<Document> examenD = new ArrayList<>();
         for (Document examen : examenes) {

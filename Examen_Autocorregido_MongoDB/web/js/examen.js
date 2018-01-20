@@ -15,7 +15,9 @@ $(document).ready(function () {
     generarExamen();
     //Clicks
     $("#myForm").submit(function () {
-        corregirExamen();
+        if (validacionesAdicionales()) {
+            corregirExamen();
+        }
         return false;
     });
 });
@@ -30,6 +32,41 @@ function comprobarDatos() {
     //Si existen los datos, borrarlos para la proxima vez
     sessionStorage.removeItem("_DNI");
     sessionStorage.removeItem("_tipoExamen");
+}
+
+function validacionesAdicionales() {
+    var ok = true;
+    $("form").find('.selectS').each(function () {
+        if (($(this).prop('selectedIndex')) === 0) {
+            $(this).focus();
+            showToast("Formulario Incompleto", "Completa el Select", "error", "#D43721");
+            ok = false;
+            return false;
+        }
+    });
+    if (ok === false) {
+        return false;
+    }
+
+    $("form").find('.divCheckBox').each(function () {
+        ok = false;
+        var array = $(this).find('input:checkbox').get();
+        for (j = 0; j < array.length; j++) {
+            if (array[j].checked) {
+                ok = true;
+            }
+        }
+        if (ok === false) {
+            $(this).focus();
+            showToast("Formulario Incompleto", "Completa el CheckBox", "error", "#D43721");
+            return false;
+        }
+    });
+    if (ok === false) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 function generarExamen() {
@@ -66,6 +103,7 @@ function generarExamen() {
                     }
                 }
             });
+            //Controlar eventos
         },
         error: function (e) {
             $("#divCargando").fadeOut(400);
@@ -130,7 +168,7 @@ function corregirExamen() {
                         nota += punt;
                         break;
                     case "selectS":
-                        if ($(this)[0].selectedIndex === soluciones[i]) {
+                        if ($(this)[0].selectedIndex - 1 === soluciones[i]) {
                             nota += 10 / tipo.length;
                         }
                         break;
@@ -166,10 +204,11 @@ function corregirExamen() {
                 i++;
             });
     nota = Math.round(nota * 100) / 100; //Esto redondea a 2 dec
-    alert(nota);
+    showToast("NOTA: " + nota, "", "success", "#36B62D");
+
 
     //Al final guardamos la nota
-    //guardarNota();
+    guardarNota();
 }
 
 function guardarNota() {
@@ -224,7 +263,8 @@ function escribirCheckBox(pregunta) {
 }
 
 function escribirSelectS(pregunta) {
-    var $sel = $("<select required/>");
+    var $sel = $("<select class='selectS'/>");
+    $sel.append($("<option>Selecciona..</option>"));
     $.each(pregunta.respuesta, function (i, item) {
         $sel.append($("<option>" + item + "</option>"));
     });

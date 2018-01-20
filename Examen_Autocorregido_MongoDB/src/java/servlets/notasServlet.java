@@ -44,7 +44,6 @@ public class notasServlet extends HttpServlet {
 
             //Create collection
             MongoCollection<Document> collectionNotas = database.getCollection("Notas");
-
             //Mete todos los documentos en una lista
             List<Document> notas = (List<Document>) collectionNotas.find().into(
                     new ArrayList<Document>());
@@ -87,6 +86,15 @@ public class notasServlet extends HttpServlet {
 
             //Create collection
             MongoCollection<Document> collectionNotas = database.getCollection("Notas");
+
+            //Create collection
+            //Eliminar si existe
+            List<Document> resultados = database.getCollection("Notas").find().into(new ArrayList<>());
+            for (Document r : resultados) {
+                if (r.getString("DNI").equals(DNI) && r.getString("tipoExamen").equals(tipoExamen)) {
+                    collectionNotas.deleteOne(r);
+                }
+            }
 
             //Insert document
             Document notaDoc = new Document()
