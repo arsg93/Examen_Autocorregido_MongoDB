@@ -31,7 +31,7 @@ $(document).ready(function () {
         window.location = "resultados.html";
     });
     $("#btnVolver").click(function () {
-        window.location = "resultados.html";
+        window.location = "index.html";
     });
 });
 function comprobarDatos() {
@@ -149,17 +149,31 @@ function corregirExamen() {
                         if (array[soluciones[i]].checked) {
                             nota += (10 / tipo.length);
                         }
+
+                        for (j = 0; j < array.length; j++) {
+                            if (array[j].checked) {
+                                array[j].parentElement.style.color = "red";
+                                array[j].parentElement.style.fontWeight = "bold";
+                            }
+                        }
+
                         array[soluciones[i]].parentElement.style.color = "green";
                         array[soluciones[i]].parentElement.style.fontWeight = "bold";
                         break;
                     case "text":
+                        $(this).prop('readonly', true);
                         //Corregir text
                         if ($(this).val().toLowerCase() === soluciones[i].toLowerCase()) {
                             nota += 10 / tipo.length;
+                            $(this)[0].style.color = "green";
+                            $(this)[0].style.fontWeight = "bold";
+                            $(this)[0].value = "Correcta: " + soluciones[i];
+                        } else {
+                            $(this)[0].style.color = "red";
+                            $(this)[0].style.fontWeight = "bold";
+                            $(this)[0].value = "Error: " + $(this)[0].value + " -> Correcta: " + soluciones[i];
                         }
-                        $(this)[0].style.color = "green";
-                        $(this)[0].style.fontWeight = "bold";
-                        $(this)[0].value = soluciones[i];
+
                         break;
                     case "checkbox":
                         //Recorrer el checkBox - Length de checkBox hijos
@@ -170,6 +184,8 @@ function corregirExamen() {
                         for (j = 0; j < array.length; j++) {
                             if (array[j].checked) {
                                 check++;
+                                array[j].parentElement.style.color = "red";
+                                array[j].parentElement.style.fontWeight = "bold";
                             }
                         }
                         for (x = 0; x < soluciones[i].tam; x++) {
@@ -192,15 +208,23 @@ function corregirExamen() {
                         nota += punt;
                         break;
                     case "selectS":
+                        $(this).attr("disabled", true);
                         if ($(this)[0].selectedIndex - 1 === soluciones[i]) {
                             nota += 10 / tipo.length;
+                            $(this)[0].style.color = "green";
+                            $(this)[0].style.fontWeight = "bold";
+                            $(this)[0].options[$(this)[0].selectedIndex].innerHTML = "Correcta: " + $(this)[0].options[$(this)[0].selectedIndex].value;
+                        } else {
+                            $(this)[0].style.color = "red";
+                            $(this)[0].style.fontWeight = "bold";
+                            $(this)[0].options[$(this)[0].selectedIndex].innerHTML = "Error: " + $(this)[0].options[$(this)[0].selectedIndex].value
+                                    + " -> Correcta: " + $(this)[0].options[soluciones[i] + 1].value;
                         }
-                        $(this)[0].style.color = "green";
-                        $(this)[0].style.fontWeight = "bold";
-                        $(this)[0].selectedIndex = soluciones[i] + 1;
+
 
                         break;
                     case "multiple":
+                        $(this).attr("disabled", true);
                         var array = $(this).find('option').get();
                         var punt = 0;
                         var check = 0;
