@@ -13,12 +13,25 @@ var numSoluciones = [];
 $(document).ready(function () {
     comprobarDatos();
     generarExamen();
+
+    //Confirmar test
+    $("#btnConfirmarTest").click(function () {
+        corregirExamen();
+    });
+
     //Clicks
     $("#myForm").submit(function () {
         if (validacionesAdicionales()) {
-            corregirExamen();
+            $("#modalTest").modal("show");
         }
         return false;
+    });
+
+    $("#btnResulados").click(function () {
+        window.location = "resultados.html";
+    });
+    $("#btnVolver").click(function () {
+        window.location = "resultados.html";
     });
 });
 function comprobarDatos() {
@@ -26,7 +39,7 @@ function comprobarDatos() {
     tipoExamen = sessionStorage.getItem("_tipoExamen");
     //Si no existen los datos, redireccionar al index
     if (DNI === null || tipoExamen === null) {
-        //location.replace("./index.html");
+        location.replace("./index.html");
     }
 
     //Si existen los datos, borrarlos para la proxima vez
@@ -50,14 +63,16 @@ function validacionesAdicionales() {
 
     $("form").find('.divCheckBox').each(function () {
         ok = false;
+        var chk;
         var array = $(this).find('input:checkbox').get();
+        chk = array[0];
         for (j = 0; j < array.length; j++) {
             if (array[j].checked) {
                 ok = true;
             }
         }
         if (ok === false) {
-            $(this).focus();
+            array[0].focus();
             showToast("Formulario Incompleto", "Completa el CheckBox", "error", "#D43721");
             return false;
         }
@@ -122,6 +137,9 @@ function escribirTitulo(i, titulo) {
 
 function corregirExamen() {
     var i = 0;
+    $("#divFormulario").click(false);
+    $("#btnCorregir").fadeOut(400);
+    $("#divBotones").fadeIn(400);
     $("form").find('input:text, select, .divRadio, .divCheckBox')
             .each(function () {
                 switch (tipo[i]) {
@@ -131,12 +149,17 @@ function corregirExamen() {
                         if (array[soluciones[i]].checked) {
                             nota += (10 / tipo.length);
                         }
+                        array[soluciones[i]].parentElement.style.color = "green";
+                        array[soluciones[i]].parentElement.style.fontWeight = "bold";
                         break;
                     case "text":
                         //Corregir text
                         if ($(this).val().toLowerCase() === soluciones[i].toLowerCase()) {
                             nota += 10 / tipo.length;
                         }
+                        $(this)[0].style.color = "green";
+                        $(this)[0].style.fontWeight = "bold";
+                        $(this)[0].value = soluciones[i];
                         break;
                     case "checkbox":
                         //Recorrer el checkBox - Length de checkBox hijos
@@ -150,6 +173,8 @@ function corregirExamen() {
                             }
                         }
                         for (x = 0; x < soluciones[i].tam; x++) {
+                            array[soluciones[i][x]].parentElement.style.color = "green";
+                            array[soluciones[i][x]].parentElement.style.fontWeight = "bold";
                             if (array[soluciones[i][x]].checked) {
                                 corr++;
                                 punt += (10 / tipo.length) / soluciones[i].tam;
@@ -170,6 +195,10 @@ function corregirExamen() {
                         if ($(this)[0].selectedIndex - 1 === soluciones[i]) {
                             nota += 10 / tipo.length;
                         }
+                        $(this)[0].style.color = "green";
+                        $(this)[0].style.fontWeight = "bold";
+                        $(this)[0].selectedIndex = soluciones[i] + 1;
+
                         break;
                     case "multiple":
                         var array = $(this).find('option').get();
@@ -188,6 +217,12 @@ function corregirExamen() {
                                 punt += (10 / tipo.length) / soluciones[i].tam;
                             }
                         }
+
+                        //Seleccionar las correctas
+                        for (x = 0; x < soluciones[i].tam; x++) {
+                            array[soluciones[i][x]].selected = true;
+                        }
+
                         var t = check - corr;
                         if (check - corr > 0) {
                             for (x = 0; x < t; x++) {
@@ -282,7 +317,7 @@ function escribirMultiple(i, pregunta) {
     $.each(pregunta.respuesta, function (i, item) {
         $sel.append($("<option>" + item + "</option>"));
     });
-     $div.append($sel);
+    $div.append($sel);
     $("#divFormulario").append($div);
 }
 
@@ -290,6 +325,6 @@ function escribirText(i, pregunta) {
     var $div = $("<div />").addClass("pregunta");
     $div.append(escribirTitulo(i, pregunta.titulo));
     var $tex = $("<input class='form-control' type='text' name='" + pregunta.titulo + "' required>");
-     $div.append($tex);
+    $div.append($tex);
     $("#divFormulario").append($div);
 }

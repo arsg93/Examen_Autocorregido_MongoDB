@@ -6,7 +6,9 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Exámen Autocorregido</title>
+        <link rel="icon" type="image/png" href="img/logo.png" />
+        <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -33,11 +35,36 @@ and open the template in the editor.
                 <img id="log2" src="img/logo.png" alt="logo img"/>
                 <h3>Instituto Tecnológico<br>de Massachusetts</h3>  
             </div>    
-            <form id="myForm" autocomplete="off">
+            <form id="myForm"  autocomplete="off">
                 <div id="divFormulario" >                    
                 </div>
                 <button type="submit" class="btn btn-secondary" form="myForm" id="btnCorregir" >CORREGIR</button>
             </form>
+            <div id="divBotones">
+                <button type="button" id="btnResulados">VER<br>RESULTADOS</button>
+                <button type="button" id="btnVolver">VOLVER<br>ATRÁS</button>
+            </div>
+        </div>
+
+
+        <!-- Modal confirmar test -->
+        <div class="modal fade" id="modalTest">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">CORREGIR TEST</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás seguro que quieres corregir el test?</p>
+                        <p>Una vez corregido, podrás ver las respuestas correctas, pero no
+                        podrás volver a realizar la corrección</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnConfirmarTest">SI</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

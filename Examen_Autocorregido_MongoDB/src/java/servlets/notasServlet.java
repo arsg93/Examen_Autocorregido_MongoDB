@@ -44,6 +44,7 @@ public class notasServlet extends HttpServlet {
 
             //Create collection
             MongoCollection<Document> collectionNotas = database.getCollection("Notas");
+      
             //Mete todos los documentos en una lista
             List<Document> notas = (List<Document>) collectionNotas.find().into(
                     new ArrayList<Document>());
