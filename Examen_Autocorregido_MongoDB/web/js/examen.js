@@ -81,24 +81,23 @@ function generarExamen() {
 
             $.each(rsp[0], function (i, item) {
                 if (i !== "_id" && i !== "Nombre") {
-                    escribirTitulo(i, item.titulo);
                     soluciones.push(item.correcta);
                     tipo.push(item.tipo);
                     switch (item.tipo) {
                         case "radio":
-                            escribirRadio(item);
+                            escribirRadio(i, item);
                             break;
                         case "text":
-                            escribirText(item);
+                            escribirText(i, item);
                             break;
                         case "checkbox":
-                            escribirCheckBox(item);
+                            escribirCheckBox(i, item);
                             break;
                         case "selectS":
-                            escribirSelectS(item);
+                            escribirSelectS(i, item);
                             break;
                         case "multiple":
-                            escribirMultiple(item);
+                            escribirMultiple(i, item);
                             break;
                     }
                 }
@@ -118,7 +117,7 @@ function generarExamen() {
 
 function escribirTitulo(i, titulo) {
     var x = parseFloat(i) + parseFloat(1);
-    $("#divFormulario").append("<h3>" + x + ") " + titulo + "</h3>");
+    return $("<h3>" + x + ") " + titulo + "</h3>");
 }
 
 function corregirExamen() {
@@ -246,40 +245,51 @@ function showToast(head, text, icon, bgColor) {
     });
 }
 
-function escribirRadio(pregunta) {
-    var $div = $("<div />").addClass("divRadio");
+function escribirRadio(i, pregunta) {
+    var $div = $("<div />").addClass("pregunta divRadio");
+    $div.append(escribirTitulo(i, pregunta.titulo));
     $.each(pregunta.respuesta, function (i, item) {
         $div.append($("<label><input type='radio' name='" + pregunta.titulo + "'required> " + item + "</label><br>"));
     });
     $("#divFormulario").append($div);
 }
 
-function escribirCheckBox(pregunta) {
-    var $div = $("<div />").addClass("divCheckBox");
+function escribirCheckBox(i, pregunta) {
+    var $div = $("<div />").addClass("pregunta divCheckBox");
+    $div.append(escribirTitulo(i, pregunta.titulo));
     $.each(pregunta.respuesta, function (i, item) {
         $div.append($("<label><input type='checkbox' name='" + pregunta.titulo + "'> " + item + "</label><br>"));
     });
     $("#divFormulario").append($div);
 }
 
-function escribirSelectS(pregunta) {
+function escribirSelectS(i, pregunta) {
+    var $div = $("<div />").addClass("pregunta");
+    $div.append(escribirTitulo(i, pregunta.titulo));
     var $sel = $("<select class='selectS'/>");
     $sel.append($("<option>Selecciona..</option>"));
     $.each(pregunta.respuesta, function (i, item) {
         $sel.append($("<option>" + item + "</option>"));
     });
-    $("#divFormulario").append($sel);
+    $div.append($sel);
+    $("#divFormulario").append($div);
 }
 
-function escribirMultiple(pregunta) {
+function escribirMultiple(i, pregunta) {
+    var $div = $("<div />").addClass("pregunta");
+    $div.append(escribirTitulo(i, pregunta.titulo));
     var $sel = $("<select multiple required/>");
     $.each(pregunta.respuesta, function (i, item) {
         $sel.append($("<option>" + item + "</option>"));
     });
-    $("#divFormulario").append($sel);
+     $div.append($sel);
+    $("#divFormulario").append($div);
 }
 
-function escribirText(pregunta) {
+function escribirText(i, pregunta) {
+    var $div = $("<div />").addClass("pregunta");
+    $div.append(escribirTitulo(i, pregunta.titulo));
     var $tex = $("<input class='form-control' type='text' name='" + pregunta.titulo + "' required>");
-    $("#divFormulario").append($tex);
+     $div.append($tex);
+    $("#divFormulario").append($div);
 }

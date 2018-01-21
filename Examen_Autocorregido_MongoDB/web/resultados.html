@@ -12,6 +12,7 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
         <script src="js/resultados.js"></script>
         <link rel="stylesheet" href="css/resultados.css">
         <script src="js/jquery.toast.min.js"></script>
@@ -27,7 +28,13 @@ and open the template in the editor.
             </div>
         </div>
         <div id="contenedorPrincipal" class="container">
-            <div class="table-responsive">
+            <div class="header">
+                <img id="log1" src="img/logo.png" alt="logo img"/>
+                <h1>MiT</h1>
+                <img id="log2" src="img/logo.png" alt="logo img"/>
+                <h3>Instituto Tecnológico<br>de Massachusetts</h3>  
+            </div>   
+            <div class="table-responsive tabla">
                 <table class="table" id="tablaNotas">
                     <thead>
                         <tr>
@@ -41,8 +48,10 @@ and open the template in the editor.
                     </tbody>
                 </table>
             </div>
+
         </div>
-        
-        <button id="btnVolver" type="button">Volver atrás</button>
+        <div id="atras" class="container">
+            <button id="btnVolver" type="button">Volver atrás</button>
+        </div>
     </body>
 </html>
