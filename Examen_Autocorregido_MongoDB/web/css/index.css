@@ -112,6 +112,10 @@ input, select{
     vertical-align:middle
 }
 
+#divCargando div div img {
+    width: 15%;
+}
+
 .modal {
     text-align: center;
 }
@@ -156,6 +160,11 @@ input, select{
 
     .modal button {
         width: 30%;
+    }
+
+
+    #divCargando div div img {
+        width: 33%;
     }
 }
 

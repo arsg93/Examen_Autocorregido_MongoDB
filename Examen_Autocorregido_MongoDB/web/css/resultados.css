@@ -30,6 +30,10 @@ body {
     vertical-align:middle
 }
 
+#divCargando div div img {
+    width: 15%;
+}
+
 .header {
     text-align: center;
     color: wheat;
@@ -101,24 +105,7 @@ table {
     font-size: 1.3em;
 }
 
-@media screen and (max-width: 767.5px){
-
-    button {
-        width: 33%;
-    }
-
-    #log1, #log2 {
-        position: absolute;
-        opacity: 0.2;
-        top: 5%;
-        height: 85%;
-        -webkit-transition: -webkit-transform .8s ease-in-out;
-        transition:         transform .8s ease-in-out;
-    }
-
-
-}
-#atras{
+#atras {
     text-align: center;
 }
 
@@ -134,3 +121,26 @@ table {
     padding: 25px;
     margin-bottom: 40px;
 }
+
+@media screen and (max-width: 767.5px){
+
+    button {
+        width: 33%;
+    }
+
+    #log1, #log2 {
+        position: absolute;
+        opacity: 0.2;
+        top: 5%;
+        height: 85%;
+        -webkit-transition: -webkit-transform .8s ease-in-out;
+        transition:         transform .8s ease-in-out;
+    }
+
+    #divCargando div div img {
+        width: 33%;
+    }
+}
+
+
+
