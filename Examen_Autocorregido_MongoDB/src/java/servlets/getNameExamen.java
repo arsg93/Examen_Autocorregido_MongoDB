@@ -262,7 +262,7 @@ public class getNameExamen extends HttpServlet {
         //Create pregunta
         Document pregunta = new Document()
                 .append("tipo", "text")
-                .append("titulo", "¿Cuál jugador inventó la expresión “jogo bonito”?");
+                .append("titulo", "¿Cuál jugador inventó la expresión \"jogo bonito\"?");
 
         pregunta.put("correcta", "Pelé");
 
